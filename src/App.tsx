@@ -1,25 +1,55 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import {
+  Backdrop,
+  CircularProgress,
+  ThemeProvider,
+  createTheme,
+} from "@mui/material";
+import { AppColors } from "./constant/AppColors";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
+import store from "./state/Store";
+import { MainPage } from "./pages/MainPage";
+import { AddProductPage } from "./pages/AddProductPage";
+
+const theme = createTheme({
+  palette: {
+    primary: { main: AppColors.Blue, contrastText: AppColors.White },
+    secondary: {
+      main: AppColors.White,
+      light: AppColors.LightGray,
+      dark: AppColors.Black,
+      contrastText: AppColors.Black,
+    },
+  },
+  typography: {
+    fontFamily: "satoshi",
+  },
+});
+
+export const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <MainPage />,
+  },
+  {
+    path: "/newProduct",
+    element: <AddProductPage />
+  }
+]);
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Backdrop
+          sx={{ color: AppColors.White, zIndex: 999999999 }}
+          open={false}
         >
-          Learn React
-        </a>
-      </header>
-    </div>
+          <CircularProgress color="inherit" />
+        </Backdrop>
+        <RouterProvider router={router} />
+      </ThemeProvider>
+    </Provider>
   );
 }
 
