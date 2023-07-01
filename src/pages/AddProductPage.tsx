@@ -1,12 +1,12 @@
 import React from "react";
 import { Header } from "../components/Header";
-import { AddProductForm } from "../components/AddProductForm";
+import { ProductForm } from "../components/ProductForm";
 
 export const AddProductPage: React.FC = () => {
   return (
     <>
-      <Header />
-      <AddProductForm />
+      <Header title="PRODUCTS"/>
+      <ProductForm />
     </>
   );
 };

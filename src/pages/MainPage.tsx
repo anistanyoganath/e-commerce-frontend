@@ -7,16 +7,16 @@ export const MainPage: React.FC = () => {
   const productList: Product[] = [
     {
       sku: 1234,
-      productName: "testProduct",
+      name: "testProduct",
       images: [],
-      productDescription: "",
+      description: "",
       quantity: 10,
       price: 100
     },
   ];
   return (
     <>
-      <Header title="PRODUCTS" />
+      <Header title="PRODUCTS" searchBarEnable/>
       <ProductList productList={productList} />
     </>
   );

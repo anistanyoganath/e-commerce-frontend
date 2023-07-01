@@ -10,6 +10,10 @@ import { Provider } from "react-redux";
 import store from "./state/Store";
 import { MainPage } from "./pages/MainPage";
 import { AddProductPage } from "./pages/AddProductPage";
+import { EditProductPage } from "./pages/EditProductPage";
+import { SearchResultPage } from "./pages/SearchResultPage";
+import { FavouriteProductPage } from "./pages/FavouriteProductPage";
+import { ProductDetailPage } from "./pages/ProductDetailPage";
 
 const theme = createTheme({
   palette: {
@@ -32,9 +36,25 @@ export const router = createBrowserRouter([
     element: <MainPage />,
   },
   {
-    path: "/newProduct",
+    path: "/productDetail/:sku",
+    element: <ProductDetailPage />
+  },
+  {
+    path: "/favouriteProducts",
+    element: <FavouriteProductPage />
+  },
+  {
+    path: "/searchResult",
+    element: <SearchResultPage />
+  },
+  {
+    path: "/addProduct",
     element: <AddProductPage />
-  }
+  },
+  {
+    path: "/editProduct",
+    element: <EditProductPage />
+  },
 ]);
 
 function App() {
