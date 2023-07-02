@@ -7,16 +7,31 @@ import {
   TableHead,
   TableRow,
 } from "@mui/material";
-import React from "react";
-import { Product } from "../models/Product";
+import React, { useEffect } from "react";
+import { Product } from "../models/ProductModel";
 import { useDispatch, useSelector } from "react-redux";
-import { deleteProduct, updateProduct } from "../state/Slice";
+import { deleteProduct, setProductList, updateProduct } from "../state/Slice";
 import { useNavigate } from "react-router-dom";
+import { getAllProducts } from "../services/ProductServices";
+import { ResponseModel } from "../models/ResponseModel";
 
 export const ProductList: React.FC = () => {
   const productList = useSelector((state: Product[]) => state);
   const dispath = useDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getProductList();
+  }, []);
+
+  async function getProductList() {
+    await getAllProducts().then((response: ResponseModel) => {
+      if (response.status) {
+        let tempProductList = response.data as Product[];
+        dispath(setProductList(tempProductList));
+      }
+    });
+  }
 
   const handleProductAction = (
     product: Product,

@@ -9,7 +9,7 @@ import {
 } from "@mui/material";
 import React, { useState } from "react";
 import { addProduct } from "../state/Slice";
-import { Product } from "../models/Product";
+import { Product } from "../models/ProductModel";
 import { useDispatch } from "react-redux";
 
 interface Props {

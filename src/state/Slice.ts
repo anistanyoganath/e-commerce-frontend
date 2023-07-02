@@ -1,5 +1,5 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
-import { Product } from "../models/Product";
+import { Product } from "../models/ProductModel";
 
 const initialState: Product[] = [];
 
@@ -7,8 +7,8 @@ const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    getProduct: (state, action: PayloadAction<string>) => {
-      return state.filter(x => x.sku === action.payload);
+    setProductList: (state, action: PayloadAction<Product[]>) => {
+      state = action.payload;
     },
     addProduct: (state, action: PayloadAction<Product>) => {
       state.push(action.payload);
@@ -28,5 +28,10 @@ const productSlice = createSlice({
   },
 });
 
-export const {addProduct, updateProduct, deleteProduct, getProduct} = productSlice.actions;
+export const {
+  addProduct,
+  updateProduct,
+  deleteProduct,
+  setProductList,
+} = productSlice.actions;
 export default productSlice.reducer;
