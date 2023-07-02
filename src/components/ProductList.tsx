@@ -9,22 +9,26 @@ import {
 } from "@mui/material";
 import React from "react";
 import { Product } from "../models/Product";
+import { useDispatch, useSelector } from "react-redux";
+import { deleteProduct, updateProduct } from "../state/Slice";
+import { useNavigate } from "react-router-dom";
 
-interface Props {
-  productList: Product[];
-}
+export const ProductList: React.FC = () => {
+  const productList = useSelector((state: Product[]) => state);
+  const dispath = useDispatch();
+  const navigate = useNavigate();
 
-export const ProductList: React.FC<Props> = (props) => {
   const handleProductAction = (
-    sku: number,
-    action: "delete" | "edit" | "star"
+    product: Product,
+    action: "delete" | "edit" | "like"
   ) => {
     switch (action) {
       case "delete":
-
+        dispath(deleteProduct(product.sku));
+        break;
       case "edit":
-
-      case "star":
+        dispath(updateProduct(product));
+        break;
     }
   };
 
@@ -41,7 +45,7 @@ export const ProductList: React.FC<Props> = (props) => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {props.productList.map((product, index) => (
+          {productList.map((product, index) => (
             <TableRow key={index}>
               <TableCell>{product.sku}</TableCell>
               <TableCell>{product.name}</TableCell>
@@ -54,19 +58,13 @@ export const ProductList: React.FC<Props> = (props) => {
                   justifyContent: "space-between",
                 }}
               >
-                <Button
-                  onClick={() => handleProductAction(product.sku, "delete")}
-                >
+                <Button onClick={() => handleProductAction(product, "delete")}>
                   <img src="/assets/delete-icon.svg" />
                 </Button>
-                <Button
-                  onClick={() => handleProductAction(product.sku, "edit")}
-                >
+                <Button onClick={() => navigate("/editProduct/" + product.sku)}>
                   <img src="/assets/edit-icon.svg" />
                 </Button>
-                <Button
-                  onClick={() => handleProductAction(product.sku, "star")}
-                >
+                <Button onClick={() => handleProductAction(product, "like")}>
                   <img src="/assets/star.svg" />
                 </Button>
               </TableCell>

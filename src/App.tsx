@@ -52,7 +52,7 @@ export const router = createBrowserRouter([
     element: <AddProductPage />
   },
   {
-    path: "/editProduct",
+    path: "/editProduct/:sku",
     element: <EditProductPage />
   },
 ]);

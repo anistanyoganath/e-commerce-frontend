@@ -1,22 +1,32 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Product } from "../models/Product";
 
-const initialState = {
-  tasks: [],
-};
+const initialState: Product[] = [];
 
-const todoSlice = createSlice({
-  name: "todo",
+const productSlice = createSlice({
+  name: "products",
   initialState,
   reducers: {
-    // addTodo: (state, action) => {
-    //   state.tasks.push({ id: Date.now(), text: action.payload });
-    // },
-    // deleteTodo: (state, action) => {
-    //   state.tasks = state.tasks.filter((task: any) => task.id !== action.payload);
-    // },
+    getProduct: (state, action: PayloadAction<string>) => {
+      return state.filter(x => x.sku === action.payload);
+    },
+    addProduct: (state, action: PayloadAction<Product>) => {
+      state.push(action.payload);
+    },
+    updateProduct: (state, action: PayloadAction<Product>) => {
+      const index = state.findIndex((item) => item.sku === action.payload.sku);
+      if (index !== -1) {
+        state[index] = action.payload;
+      }
+    },
+    deleteProduct: (state, action: PayloadAction<string>) => {
+      const index = state.findIndex((item) => item.sku === action.payload);
+      if (index !== -1) {
+        state.splice(index, 1);
+      }
+    },
   },
 });
 
-//export const { addTodo, deleteTodo } = todoSlice.actions;
-
-export default todoSlice.reducer;
+export const {addProduct, updateProduct, deleteProduct, getProduct} = productSlice.actions;
+export default productSlice.reducer;
