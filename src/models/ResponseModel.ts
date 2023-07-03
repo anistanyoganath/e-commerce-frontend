@@ -1,5 +1,5 @@
 export type ResponseModel = {
-  status: boolean;
-  message: string;
-  data: any;
+  Status: boolean;
+  Message: string;
+  Data: any;
 };

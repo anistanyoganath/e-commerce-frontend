@@ -7,8 +7,8 @@ const productSlice = createSlice({
   name: "products",
   initialState,
   reducers: {
-    setProductList: (state, action: PayloadAction<Product[]>) => {
-      state = action.payload;
+    setProductList: (_state, action: PayloadAction<Product[]>) => {
+      return action.payload;
     },
     addProduct: (state, action: PayloadAction<Product>) => {
       state.push(action.payload);
@@ -25,6 +25,9 @@ const productSlice = createSlice({
         state.splice(index, 1);
       }
     },
+    filterFavouriteProducts: (state) => {
+      return state.filter(item => item.isFavourite);
+    } 
   },
 });
 
@@ -33,5 +36,6 @@ export const {
   updateProduct,
   deleteProduct,
   setProductList,
+  filterFavouriteProducts
 } = productSlice.actions;
 export default productSlice.reducer;
